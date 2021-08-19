@@ -1,0 +1,16 @@
+  987  sort -r ex1.txt
+  988  grep gcc > ex1.txt
+  989  ls /usr/bin > ex1.txt
+  990  sort -r ex1.txt > ex1.txt
+  991  ls /usr/bin | sort -r | grep gcc > ex1.txt
+  992  history > ex2.txt
+  993  nano ex2.txt
+  994  jobs
+  995  man jobs
+  996  jobs --help
+  997  jobs --help
+  998  jobs --help
+  999  jobs -h
+ 1000  jobs
+ 1001  cd ~/OS2021/week1
+ 1002  ls /usr/bin | sort -r | grep gcc > ex1.txt
