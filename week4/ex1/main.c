@@ -1,20 +1,27 @@
+#include <pthread.h>
 #include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <stdlib.h>
 
-void ex1() {
-    if (fork() == 0) {
-        printf("Hello from child [");
-        printf("%d", getpid());
-        printf(" - n]\n");
-    } else {
-        printf("Hello from parent [");
-        printf("%d", getpid());
-        printf(" - n]\n");
-    }
+void line() {
+    printf("\n");
+}
+
+void* printId(void* args) {
+    printf("%d", pthread_self());
+    line();
+    return NULL;
 }
 
 int main() {
-    ex1();
+    int n;
+    scanf("%d", &n);
+
+    pthread_t thread;
+    for(int i = 0; i < n; i++) {
+        printf("creating a thread number %d", i+1);
+        printf(": ");
+        pthread_create(&thread, NULL, printId, NULL);
+        pthread_join(thread, NULL);
+    }
     return 0;
 }
