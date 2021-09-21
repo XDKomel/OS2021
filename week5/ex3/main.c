@@ -1,28 +1,24 @@
 #include <pthread.h>
 #include <stdio.h>
 
-void line() {
-    printf("\n");
-}
-
-int consumerIsSleeping = 1;
+int consumerIsSleeping = 0;
 int producerIsSleeping = 0;
-int globalVariable = 0;
-int numberOfCycles = 0;
+int buffer = 0;
+const int criticalBufferValue = 1000;
 
 void* produce(void* args) {
     while (1) {
-        if (!producerIsSleeping) {
-            if (globalVariable < 1000) {
-                globalVariable++;
-            } else {
-                producerIsSleeping = 1;
-                printf("produced number %d", globalVariable);
-                line();
-                consumerIsSleeping = 0;
-            }
-        } else if (numberOfCycles > 10) {
-            break;
+        if (producerIsSleeping) {
+            printf("I am a producer and I am sleeping\n");
+            continue;
+        }
+        if (buffer < criticalBufferValue)
+            printf("producer takes %d", buffer);
+        if (buffer > 0) {
+            consumerIsSleeping = 0;
+            buffer++;
+        } else {
+            producerIsSleeping = 1;
         }
     }
     return NULL;
@@ -30,18 +26,17 @@ void* produce(void* args) {
 
 void* consume(void* args) {
     while (1) {
-        if (!consumerIsSleeping) {
-            if (globalVariable > 100) {
-                globalVariable--;
-            } else {
-                consumerIsSleeping = 1;
-                printf("consumed number %d", globalVariable);
-                line();
-                producerIsSleeping = 0;
-                numberOfCycles++;
-            }
-        } else if (numberOfCycles > 10) {
-            break;
+        if (consumerIsSleeping) {
+            printf("I am a consumer and I am sleeping\n");
+            continue;
+        }
+        if (buffer < criticalBufferValue)
+            printf("consumer takes %d", buffer);
+        if (buffer > 0) {
+            producerIsSleeping = 0;
+            buffer--;
+        } else {
+            consumerIsSleeping = 1;
         }
     }
     return NULL;
