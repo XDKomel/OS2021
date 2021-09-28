@@ -84,7 +84,7 @@ void sortByArrivalTime(struct Process processes[10], int processesCount) {
 }
 
 void sortByBurstTime(struct Process processes[10], int processesCount) {
-    for (int i = 0; i < processesCount; i++) 
+    for (int i = 0; i < processesCount; i++)
         for (int k = i; k < processesCount; k++) 
             if (
                 (processes[i].burstTime > processes[k].burstTime) && 
@@ -109,9 +109,9 @@ void fillProcessesArray(struct Process processes[10], int processesCount) {
         fillProcess(&processes[i], &time);
 }
 
-void fillBurstTimes(int processesCount, int burstTimes[processesCount], struct Process processes[10]) {
+void copyBurstTimes(int processesCount, int burstTimes[processesCount], struct Process processes[10]) {
     for (int i = 0; i < processesCount; i++)
-        burstTimes[i] = processes[i].burstTime;
+        burstTimes[i] = processes[i].burstTime; 
 }
 
 void fillProcessWithCustomBurstTime(int burstTime, struct Process* process, int* time) {
@@ -121,23 +121,32 @@ void fillProcessWithCustomBurstTime(int burstTime, struct Process* process, int*
     *time = process->completionTime;
 }
 
+void performQuantum(int quantum, int* burstTime, int* time, int processArrivalTime) {
+    *burstTime = *burstTime - quantum;
+    *time =
+        quantum +
+        (processArrivalTime > *time ? processArrivalTime : *time);
+}
+
+
 void fillProcessesArrayWithQuantum(int quantum, struct Process processes[10], int processesCount) {
     int time = processes[0].arrivalTime;
     int burstTimes[processesCount];
-    int numberOfCompleted = 0;
-    fillBurstTimes(processesCount, burstTimes, processes);
-    for (int i = 0; numberOfCompleted < processesCount; i++) {
+    int completed = 0;
+    copyBurstTimes(processesCount, burstTimes, processes);
+    for (int i = 0; completed < processesCount; i++) {
         i = i % processesCount;
-        if (burstTimes[i] > quantum) {
-            burstTimes[i] = burstTimes[i] - quantum;
-            time = 
-                quantum +
-                (processes[i].arrivalTime > time ? processes[i].arrivalTime : time);
-        } else if (burstTimes[i] != -1) {
-            fillProcessWithCustomBurstTime(burstTimes[i], &processes[i], &time);
-            burstTimes[i] = -1;
-            numberOfCompleted++;
-        }
+        do {
+            if (burstTimes[i] > quantum) {
+                performQuantum(quantum, &burstTimes[i], &time, processes[i].arrivalTime);
+            } else if (burstTimes[i] != -1) {
+                fillProcessWithCustomBurstTime(burstTimes[i], &processes[i], &time);
+                burstTimes[i] = -1;
+                completed++;
+                i = 0;
+                break;
+            }
+        } while (processes[(i+1)%processesCount].arrivalTime > time);
     }
 }
 
@@ -147,9 +156,9 @@ int main() {
 
     getProcessesFromFile(processes, &processesCount);
     sortByArrivalTime(processes, processesCount);
-    // sortByBurstTime(processes, processesCount);
+    // sortByBurstTime(processes, processesCount);  
     // fillProcessesArray(processes, processesCount);
-    fillProcessesArrayWithQuantum(3, processes, processesCount);
+    fillProcessesArrayWithQuantum(2, processes, processesCount);
 
     printInfo(processes, processesCount);
 
