@@ -1,0 +1,2 @@
+Physical memory is limited because we refer to some real RAM.
+Virtual memory is more abstract so it is limited not by RAM but by the disk size and we access the manager which though refers to either RAM or disk.

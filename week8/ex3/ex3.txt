@@ -1,0 +1,8 @@
+it does work, something like this:
+
+PID    COMMAND      %CPU  TIME     #TH    #WQ  #PORT MEM    PURG   CMPRS  PGRP  PPID  STATE    BOOSTS            %CPU_ME %CPU_OTHRS UID  FAULTS     COW
+45449  clion        19.1  04:29.25 97     5    574-  1765M+ 772K   26M    45449 1     sleeping *0[247]           0.92533 1.20672    501  2461018+   31414+
+801    appstoreagen 12.5  07:19.66 10     7    247   11M    0B     1772K  801   1     sleeping  0[20916]         0.53738 0.00000    501  4501057+   537
+136    WindowServer 10.4  05:24:16 15     6    3422  814M-  2688K  112M   136   1     sleeping *0[1]             1.23430 0.87139    88   990554573+ 1302001
+0      kernel_task  10.4  02:27:45 283/12 0    0     46M    0B     0B     0     0     running   0[0]             0.00000 0.00000    0    2277746+   11715
+45936  top          4.9   00:03.49 1/1    0    27    5052K  0B     0B     45936 45624 running  *0[1]             0.00000 0.00000    0    26636+     115

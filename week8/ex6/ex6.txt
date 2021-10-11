@@ -1,0 +1,3 @@
+For 8KB pages we need 2^13 bits which would specify the byte offset within the selected page (2^13 = 8192 = 8KB).
+13 out of 16 bits are used for the offset, and 3 remaining bits are used for the page number (they are called "high-order bits").
+2^3 = 8. This is the number of pages that we can have in page table.

@@ -1,0 +1,13 @@
+/Users/camille/Documents/c_program/cmake-build-debug/c_program
+11247616
+11247616
+11247616
+11247616
+11247616
+11247616
+11247616
+11247616
+11247616
+11247616
+
+Process finished with exit code 0
