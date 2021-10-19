@@ -1,0 +1,1 @@
+Encountering an existing page id leads to a higher h/m ratio. So making all the pages ids equal to the very same number made the h/m ratio equal to 999 for any number of stored pages. Making a repeating list of 50 random numbers every 50 times leaded to a great h/m ratio increase after selecting the pages number equal to 50 and greater.
