@@ -1,0 +1,7 @@
+List of available shortcuts:
+P + E -> I passed the exam!
+C + A + P -> Get some cappuccino!
+H + W -> You have some homework to do!
+I passed the exam!
+Get some cappuccino!
+You have some homework to do!

@@ -22,7 +22,7 @@ int main(void) {
     int pe = 0;
     int hw = 0;
     
-    printf("List of available shortcuts:\nP + E -> I passed the exam!\nC + A + P -> Get some cappuccino!\nH + W -> You have some homework to do!\n");
+    fprintf(f, "List of available shortcuts:\nP + E -> I passed the exam!\nC + A + P -> Get some cappuccino!\nH + W -> You have some homework to do!\n");
     
     while(1) {
         read(fd, &evt, sizeof(struct input_event));
@@ -39,13 +39,13 @@ int main(void) {
             	hw = 0;
             } else if (evt.code == 25) {
             	if (cap == 2) {
-            		printf("Get some cappuccino!\n");
+            		fprintf(f, "Get some cappuccino!\n");
             	} 
     		pe = 1;
     		hw = 0;
     		cap = 0;
             } else if (evt.code == 18 && pe == 1) {
-            	printf("I passed the exam!\n");
+            	fprintf(f, "I passed the exam!\n");
             	pe = 0;
             	hw = 0;
             	cap = 0;
@@ -54,7 +54,7 @@ int main(void) {
             	pe = 0;
             	cap = 0;
             } else if (evt.code == 17 && hw == 1) {
-            	printf("You have some homework to do!\n");
+            	fprintf(f, "You have some homework to do!\n");
             	pe = 0;
             	hw = 0;
             	cap = 0;
